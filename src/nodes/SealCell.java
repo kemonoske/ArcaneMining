@@ -114,7 +114,6 @@ public class SealCell extends Node implements Cell, AnimEventListener {
         if(getValue() != null)
             attachChild(getValue());
 
-        channel.setLoopMode(LoopMode.DontLoop);
         
         sealField.checkCompletion();
     }
@@ -186,10 +185,11 @@ public class SealCell extends Node implements Cell, AnimEventListener {
         if (numericValue != 0) {
             material.setTexture("ColorMap", assetManager.loadTexture("Textures/Minefield/Cell/opened.png"));
         } else {
+            channel.setLoopMode(LoopMode.DontLoop);
             sealField.openedEmptyCell(row, col);
             material.setTexture("ColorMap", assetManager.loadTexture("Textures/Minefield/Cell/empty.png"));
         }
-        model.setLocalScale(2.5f);
+        model.setLocalScale(2.0f);
         material.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
         model.setQueueBucket(Bucket.Transparent);
         model.setMaterial(material);

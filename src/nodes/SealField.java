@@ -7,18 +7,16 @@ package nodes;
 import com.jme3.asset.AssetManager;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
-import com.jme3.effect.ParticleEmitter;
-import com.jme3.effect.ParticleMesh;
 import com.jme3.input.InputManager;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.MouseButtonTrigger;
-import com.jme3.material.Material;
 import com.jme3.math.Ray;
+import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import de.lessvoid.nifty.Nifty;
+import mygame.Main;
 
 /**
  *
@@ -247,8 +245,21 @@ public class SealField extends Node {
     public void checkCompletion() {
 
         if (isCompleted()) {
-
-            System.out.println("WOOOOOOOOOOOOOOOOOOOOOOO");
+            NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(
+                    assetManager, inputManager, Main.getApp().getAudioRenderer(), Main.getApp().getGuiViewPort());
+            /**
+             * Create a new NiftyGUI object
+             */
+            Nifty nifty = niftyDisplay.getNifty();
+            /**
+             * Read your XML and initialize your custom ScreenController
+             */
+            nifty.fromXml("Interface/gameWon.xml", "start");
+            // nifty.fromXml("Interface/helloworld.xml", "start", new MySettingsScreen(data));
+            // attach the Nifty display to the gui view port as a processor
+            Main.getApp().getGuiViewPort().addProcessor(niftyDisplay);
+// disable the fly cam
+            Main.getApp().getFlyByCamera().setDragToRotate(true);
 
         }
 
@@ -256,7 +267,7 @@ public class SealField extends Node {
 
     public void bombFound() {
 
-        
+
 //        final Explosion exp = new Explosion(assetManager);
 //        
 //        attachChild(exp);
@@ -280,8 +291,22 @@ public class SealField extends Node {
 //                
 //            }
 //        }).start();
-        
-        System.out.println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+
+        NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(
+                assetManager, inputManager, Main.getApp().getAudioRenderer(), Main.getApp().getGuiViewPort());
+        /**
+         * Create a new NiftyGUI object
+         */
+        Nifty nifty = niftyDisplay.getNifty();
+        /**
+         * Read your XML and initialize your custom ScreenController
+         */
+        nifty.fromXml("Interface/gameOver.xml", "start");
+        // nifty.fromXml("Interface/helloworld.xml", "start", new MySettingsScreen(data));
+        // attach the Nifty display to the gui view port as a processor
+        Main.getApp().getGuiViewPort().addProcessor(niftyDisplay);
+// disable the fly cam
+        Main.getApp().getFlyByCamera().setDragToRotate(true);
 
     }
 
